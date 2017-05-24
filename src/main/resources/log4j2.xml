@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level [%-15.15t] %-20.20logger.%-20.20M - %msg%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="dburyak.pi.ssd1306" level="info">
+			<AppenderRef ref="Console" />
+		</Logger>
+		<Logger name="dburyak.pi.ssd1306.Display" level="trace" />
+		<Logger name="dburyak.pi.ssd1306.SSD1306_I2C" level="warn" />
+		<Logger name="dburyak.pi.ssd1306.SSD1306_SPI" level="warn" />
+	</Loggers>
+</Configuration>

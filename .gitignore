@@ -1,5 +1,18 @@
+# Gradle build artifacts
 .gradle
 /build/
+
+# Gradle Wrapper #
+# NOTE: wrapper shouldn't be ignored when specific gradle version is needed
+# This is not the case for this project at the moment, so we're using the
+# most fresh version.
+gradle/
+gradlew
+gradlew.bat
+
+# Temporary vim files
+*~
+*.swp
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -12,3 +25,26 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+
+
+### Eclipse ###
+.classpath
+.project
+.settings/
+bin/
+
+
+### Java ###
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+

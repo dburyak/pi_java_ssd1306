@@ -1,0 +1,67 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+group = 'dburyak.pi'
+version = '1.0'
+
+// TODO : add AspectJ for trace logging
+
+repositories {
+    // needed for most recent pi4J
+    maven {
+        url "https://oss.sonatype.org/content/groups/public"
+    }
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile 'org.apache.logging.log4j:log4j-api:2.+'
+    compile 'org.apache.logging.log4j:log4j-core:2.+'
+    compile 'com.pi4j:pi4j-core:1.+'
+    compile 'com.pi4j:pi4j-device:1.+'
+    compile 'com.pi4j:pi4j-gpio-extension:1.+'
+
+    // JSR-305 (@Nonnull, @Nullable, @ThreadSafe, @NotTreadSafe, @GuardedBy)
+    compile 'com.google.code.findbugs:jsr305:3.+'
+
+    testCompile 'junit:junit:4.+'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+sourceSets {
+    main
+    demo {
+        compileClasspath = sourceSets.main.output + configurations.compile
+    }
+}
+
+defaultTasks 'jar'
+
+jar {
+    from sourceSets.main.output
+    manifest {
+        if (!configurations.runtime.isEmpty()) {
+            attributes('Class-Path': configurations.runtime.collect{it.toURI().toString()}.join(' '))
+        }
+    }
+}
+
+task demoJar(type: Jar, dependsOn: ['classes', 'demoClasses']) {
+    group = 'build'
+    description = 'Build executable demo jar with all dependencies embedded.'
+    manifest {
+        attributes('Main-Class': 'dburyak.pi.ssd1306.example.Demo')
+        if (!configurations.runtime.isEmpty()) {
+            attributes('Class-Path': configurations.runtime.collect{it.toURI().toString()}.join(' '))
+        }
+    }
+    baseName = project.name + '-demo'
+    from sourceSets.demo.output
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
