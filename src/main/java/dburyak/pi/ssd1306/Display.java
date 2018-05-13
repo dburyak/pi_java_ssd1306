@@ -684,7 +684,7 @@ public class Display {
             LOG.error("contrast factor is more than 1.0D, normalizing : contrastFactor = [%f]", contrastFactor);
             contrastNorm = 1.0D;
         }
-        return (int) contrastNorm * 255;
+        return (int) (contrastNorm * 255);
     }
 
     /**
